@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Browser Vault - Pro</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+    <style>
+        .tab-content { display: none; animation: fadeIn 0.3s ease-in-out; }
+        .tab-content.active { display: block; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(5px); } to { opacity: 1; transform: translateY(0); } }
+    </style>
+</head>
+<body class="bg-slate-50 min-h-screen flex items-center justify-center font-sans text-slate-800 p-4">
+
+    <div class="bg-white p-6 sm:p-8 rounded-2xl shadow-xl border border-slate-100 w-full max-w-md">
+        <div class="text-center mb-6">
+            <div class="inline-flex items-center justify-center w-12 h-12 rounded-full bg-blue-100 text-blue-600 mb-3">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path></svg>
+            </div>
+            <h1 class="text-2xl font-extrabold tracking-tight text-slate-900">Browser Vault</h1>
+            <p class="text-sm text-slate-500 mt-1">Enkripsi Aman & Privat</p>
+        </div>
+
+        <div class="flex p-1 space-x-1 bg-slate-100 rounded-xl mb-6">
+            <button id="tabEncryptBtn" class="w-full rounded-lg py-2 text-sm font-medium transition-all bg-white shadow text-slate-700" onclick="switchTab('encrypt')">Enkripsi</button>
+            <button id="tabDecryptBtn" class="w-full rounded-lg py-2 text-sm font-medium transition-all text-slate-500 hover:text-slate-700" onclick="switchTab('decrypt')">Dekripsi</button>
+        </div>
+
+        <div id="alertBox" class="hidden mb-4 p-3 rounded-lg text-sm text-center font-medium"></div>
+
+        <div id="tabEncrypt" class="tab-content active space-y-5">
+            <div class="flex justify-center space-x-4 mb-2">
+                <label class="flex items-center space-x-2 cursor-pointer">
+                    <input type="radio" name="encType" value="file" checked class="text-blue-600 focus:ring-blue-500">
+                    <span class="text-sm font-medium">File</span>
+                </label>
+                <label class="flex items-center space-x-2 cursor-pointer">
+                    <input type="radio" name="encType" value="folder" class="text-blue-600 focus:ring-blue-500">
+                    <span class="text-sm font-medium">Folder</span>
+                </label>
+            </div>
+
+            <div id="dropZoneContainer">
+                <label id="dropZoneEncrypt" class="flex flex-col items-center justify-center w-full h-32 border-2 border-slate-300 border-dashed rounded-xl cursor-pointer bg-slate-50 hover:bg-blue-50 transition">
+                    <div class="flex flex-col items-center justify-center pt-5 pb-6 text-center px-4">
+                        <svg class="w-8 h-8 mb-2 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"></path></svg>
+                        <p class="text-xs text-slate-500 font-medium" id="dropText">Pilih File untuk dienkripsi</p>
+                    </div>
+                    <input type="file" id="fileEncrypt" class="hidden" />
+                </label>
+                
+                <div id="fileInfoEncrypt" class="hidden mt-2 p-3 bg-blue-50 rounded-lg border border-blue-100">
+                    <div class="flex items-center justify-between">
+                        <span id="fileNameDisplay" class="text-xs font-semibold text-blue-800 truncate pr-2"></span>
+                        <button onclick="resetInput('encrypt')" class="text-xs font-bold text-red-600 hover:text-red-800 underline">Batal</button>
+                    </div>
+                </div>
+            </div>
+
+            <div>
+                <label class="block text-sm font-semibold text-slate-700 mb-1.5">Password</label>
+                <input type="password" id="passEncrypt" placeholder="Kunci rahasia..." class="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-lg focus:ring-2 focus:ring-blue-500 outline-none transition text-sm">
+            </div>
+
+            <button id="btnEncrypt" class="w-full bg-blue-600 text-white font-bold py-2.5 px-4 rounded-lg hover:bg-blue-700 transition">Proses Enkripsi</button>
+        </div>
+
+        <div id="tabDecrypt" class="tab-content space-y-5">
+            <label id="dropZoneDecrypt" class="flex flex-col items-center justify-center w-full h-32 border-2 border-slate-300 border-dashed rounded-xl cursor-pointer bg-slate-50 hover:bg-green-50 transition">
+                <div class="flex flex-col items-center justify-center pt-5 pb-6 text-center px-4">
+                    <svg class="w-8 h-8 mb-2 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 11V7a4 4 0 118 0m-4 8v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2z"></path></svg>
+                    <p class="text-xs text-slate-500 font-medium">Pilih file <span class="font-bold">.vault</span></p>
+                </div>
+                <input type="file" id="fileDecrypt" accept=".vault" class="hidden" />
+            </label>
+            
+            <div id="fileInfoDecrypt" class="hidden mt-2 p-3 bg-green-50 rounded-lg border border-green-100">
+                <div class="flex items-center justify-between">
+                    <span id="vaultNameDisplay" class="text-xs font-semibold text-green-800 truncate pr-2"></span>
+                    <button onclick="resetInput('decrypt')" class="text-xs font-bold text-red-600 hover:text-red-800 underline">Batal</button>
+                </div>
+            </div>
+
+            <div>
+                <label class="block text-sm font-semibold text-slate-700 mb-1.5">Password</label>
+                <input type="password" id="passDecrypt" placeholder="Password pembuka..." class="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-lg focus:ring-2 focus:ring-green-500 outline-none transition text-sm">
+            </div>
+
+            <button id="btnDecrypt" class="w-full bg-green-600 text-white font-bold py-2.5 px-4 rounded-lg hover:bg-green-700 transition">Buka Vault</button>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
