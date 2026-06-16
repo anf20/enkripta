@@ -157,8 +157,9 @@ document.getElementById('btnDecrypt').addEventListener('click', async () => {
         
         const header = new Uint8Array(decrypted.slice(0, 4));
         const isZip = header[0] === 0x50 && header[1] === 0x4B && header[2] === 0x03 && header[3] === 0x04;
+        const hasExtension = originalName.lastIndexOf('.') !== -1;
         
-        if (isZip && !originalName.endsWith('.zip')) {
+        if (isZip && !hasExtension) {
             originalName += ".zip";
             blobType = 'application/zip';
         }
