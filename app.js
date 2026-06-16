@@ -20,8 +20,8 @@ function switchTab(tab) {
     document.getElementById('tabEncrypt').classList.toggle('active', isEnc);
     document.getElementById('tabDecrypt').classList.toggle('active', !isEnc);
     
-    const activeClass = "w-full rounded-xl py-2.5 text-sm font-bold transition-all bg-white shadow-sm text-slate-700";
-    const inactiveClass = "w-full rounded-xl py-2.5 text-sm font-bold transition-all text-slate-500 hover:text-slate-700";
+    const activeClass = "w-full py-3 text-xs font-bold transition-all bg-emerald-500 text-black uppercase";
+    const inactiveClass = "w-full py-3 text-xs font-bold transition-all text-emerald-500 hover:bg-emerald-500/10 uppercase";
     
     document.getElementById('tabEncryptBtn').className = isEnc ? activeClass : inactiveClass;
     document.getElementById('tabDecryptBtn').className = !isEnc ? activeClass : inactiveClass;
@@ -30,8 +30,8 @@ function switchTab(tab) {
 function showAlert(message, isError = false) {
     const box = document.getElementById('alertBox');
     box.innerText = message;
-    box.className = `mb-4 p-4 rounded-xl text-sm text-center font-bold border ${
-        isError ? 'bg-red-50 text-red-600 border-red-100' : 'bg-emerald-50 text-emerald-700 border-emerald-100'
+    box.className = `mb-6 p-4 text-[10px] text-center font-bold font-mono border uppercase tracking-widest ${
+        isError ? 'bg-red-900/20 text-red-500 border-red-500/50' : 'bg-emerald-900/20 text-emerald-500 border-emerald-500/50'
     }`;
     box.style.display = 'block';
 }
