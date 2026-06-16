@@ -1,4 +1,4 @@
-const APP_SECRET_SALT = "GaramRahasiaBrowserVault2026_!@#"; 
+const APP_SECRET_SALT = "GaramRahasiaEnkripta2026_!@#"; 
 
 // --- NAVIGASI VIEW ---
 function showApp() {
