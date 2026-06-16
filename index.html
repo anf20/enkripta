@@ -10,85 +10,229 @@
         .tab-content { display: none; animation: fadeIn 0.3s ease-in-out; }
         .tab-content.active { display: block; }
         @keyframes fadeIn { from { opacity: 0; transform: translateY(5px); } to { opacity: 1; transform: translateY(0); } }
+        .view-transition { animation: slideUp 0.5s ease-out; }
+        @keyframes slideUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
     </style>
 </head>
-<body class="bg-slate-50 min-h-screen flex items-center justify-center font-sans text-slate-800 p-4">
+<body class="bg-slate-100 min-h-screen font-sans text-slate-800">
 
-    <div class="bg-white p-6 sm:p-8 rounded-2xl shadow-xl border border-slate-100 w-full max-w-md">
-        <div class="text-center mb-6">
-            <div class="inline-flex items-center justify-center w-12 h-12 rounded-full bg-blue-100 text-blue-600 mb-3">
-                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path></svg>
+    <!-- HOME VIEW -->
+    <div id="homeView" class="max-w-4xl mx-auto px-4 py-12 view-transition">
+        <!-- Hero -->
+        <div class="text-center mb-16">
+            <div class="inline-flex items-center justify-center w-20 h-20 rounded-3xl bg-emerald-100 text-emerald-700 mb-6 shadow-sm border border-emerald-200">
+                <svg class="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path></svg>
             </div>
-            <h1 class="text-2xl font-extrabold tracking-tight text-slate-900">Browser Vault</h1>
-            <p class="text-sm text-slate-500 mt-1">Enkripsi Aman & Privat</p>
+            <h1 class="text-4xl md:text-5xl font-black tracking-tight text-slate-900 mb-4">Browser Vault</h1>
+            <p class="text-lg text-slate-600 max-w-2xl mx-auto mb-8">Solusi enkripsi privat berbasis browser. Lindungi file dan folder Anda dengan standar militer tanpa pernah meninggalkan perangkat Anda.</p>
+            <button onclick="showApp()" class="bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-4 px-10 rounded-2xl shadow-lg transition-all transform hover:scale-105 active:scale-95">
+                Mulai Gunakan Vault
+            </button>
         </div>
 
-        <div class="flex p-1 space-x-1 bg-slate-100 rounded-xl mb-6">
-            <button id="tabEncryptBtn" class="w-full rounded-lg py-2 text-sm font-medium transition-all bg-white shadow text-slate-700" onclick="switchTab('encrypt')">Enkripsi</button>
-            <button id="tabDecryptBtn" class="w-full rounded-lg py-2 text-sm font-medium transition-all text-slate-500 hover:text-slate-700" onclick="switchTab('decrypt')">Dekripsi</button>
+        <!-- Features Grid -->
+        <div class="grid md:grid-cols-3 gap-6 mb-16">
+            <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm">
+                <div class="w-10 h-10 bg-slate-100 rounded-lg flex items-center justify-center text-emerald-600 mb-4">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 7v10a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-6l-2-2H5a2 2 0 00-2 2z"></path></svg>
+                </div>
+                <h3 class="font-bold text-slate-900 mb-2">File & Folder</h3>
+                <p class="text-sm text-slate-600 leading-relaxed">Enkripsi file tunggal atau seluruh direktori. Folder otomatis dikonversi menjadi .vault yang aman.</p>
+            </div>
+            <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm">
+                <div class="w-10 h-10 bg-slate-100 rounded-lg flex items-center justify-center text-emerald-600 mb-4">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
+                </div>
+                <h3 class="font-bold text-slate-900 mb-2">Performa Cepat</h3>
+                <p class="text-sm text-slate-600 leading-relaxed">Proses enkripsi dilakukan secara lokal menggunakan daya prosesor Anda, memberikan kecepatan maksimal.</p>
+            </div>
+            <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm">
+                <div class="w-10 h-10 bg-slate-100 rounded-lg flex items-center justify-center text-emerald-600 mb-4">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                </div>
+                <h3 class="font-bold text-slate-900 mb-2">Tanpa Login</h3>
+                <p class="text-sm text-slate-600 leading-relaxed">Langsung gunakan tanpa perlu mendaftar. Privasi Anda adalah prioritas utama kami.</p>
+            </div>
         </div>
 
-        <div id="alertBox" class="hidden mb-4 p-3 rounded-lg text-sm text-center font-medium"></div>
-
-        <div id="tabEncrypt" class="tab-content active space-y-5">
-            <div class="flex justify-center space-x-4 mb-2">
-                <label class="flex items-center space-x-2 cursor-pointer">
-                    <input type="radio" name="encType" value="file" checked class="text-blue-600 focus:ring-blue-500">
-                    <span class="text-sm font-medium">File</span>
-                </label>
-                <label class="flex items-center space-x-2 cursor-pointer">
-                    <input type="radio" name="encType" value="folder" class="text-blue-600 focus:ring-blue-500">
-                    <span class="text-sm font-medium">Folder</span>
-                </label>
-            </div>
-
-            <div id="dropZoneContainer">
-                <label id="dropZoneEncrypt" class="flex flex-col items-center justify-center w-full h-32 border-2 border-slate-300 border-dashed rounded-xl cursor-pointer bg-slate-50 hover:bg-blue-50 transition">
-                    <div class="flex flex-col items-center justify-center pt-5 pb-6 text-center px-4">
-                        <svg class="w-8 h-8 mb-2 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"></path></svg>
-                        <p class="text-xs text-slate-500 font-medium" id="dropText">Pilih File untuk dienkripsi</p>
+        <!-- Security Section -->
+        <div class="bg-slate-800 rounded-3xl p-8 md:p-12 text-white mb-16 shadow-2xl relative overflow-hidden">
+            <div class="relative z-10">
+                <h2 class="text-3xl font-bold mb-6 flex items-center">
+                    <svg class="w-8 h-8 mr-3 text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path></svg>
+                    Keamanan Tingkat Tinggi
+                </h2>
+                <div class="grid md:grid-cols-2 gap-10">
+                    <div>
+                        <h4 class="text-emerald-400 font-bold mb-2">AES-GCM 256-bit</h4>
+                        <p class="text-slate-300 text-sm leading-relaxed">Menggunakan algoritma enkripsi standar industri yang digunakan oleh pemerintah dan bank di seluruh dunia.</p>
                     </div>
-                    <input type="file" id="fileEncrypt" class="hidden" />
+                    <div>
+                        <h4 class="text-emerald-400 font-bold mb-2">Zero Knowledge</h4>
+                        <p class="text-slate-300 text-sm leading-relaxed">Kami tidak pernah menyimpan password atau file Anda. Semua proses terjadi di RAM browser Anda dan hilang saat tab ditutup.</p>
+                    </div>
+                    <div>
+                        <h4 class="text-emerald-400 font-bold mb-2">PBKDF2 Derivation</h4>
+                        <p class="text-slate-300 text-sm leading-relaxed">Password Anda diperkuat dengan 100.000 iterasi hashing untuk mencegah serangan brute-force.</p>
+                    </div>
+                    <div>
+                        <h4 class="text-emerald-400 font-bold mb-2">Open Source Logic</h4>
+                        <p class="text-slate-300 text-sm leading-relaxed">Menggunakan Web Crypto API bawaan browser yang transparan dan teruji keamanannya.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="absolute top-0 right-0 -mt-20 -mr-20 w-64 h-64 bg-emerald-500 opacity-10 rounded-full blur-3xl"></div>
+        </div>
+
+        <!-- Tutorial & Ketentuan -->
+        <div class="mb-12">
+            <h2 class="text-2xl font-bold text-center text-slate-900 mb-8">Cara Penggunaan & Ketentuan</h2>
+            
+            <div class="grid md:grid-cols-2 gap-8 mb-8">
+                <!-- Enkripsi -->
+                <div class="bg-white p-6 rounded-3xl border border-slate-200 shadow-sm relative overflow-hidden">
+                    <div class="absolute top-0 right-0 bg-emerald-100 text-emerald-800 text-[10px] font-bold px-3 py-1 rounded-bl-xl uppercase tracking-wider">Enkripsi</div>
+                    <h3 class="font-bold text-slate-800 mb-4 flex items-center"><svg class="w-5 h-5 mr-2 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path></svg> Mengamankan File</h3>
+                    <ul class="text-sm text-slate-600 space-y-3">
+                        <li class="flex items-start"><span class="bg-emerald-100 text-emerald-700 rounded-full w-5 h-5 flex items-center justify-center text-xs font-bold mr-2 mt-0.5 shrink-0">1</span> Pilih tab Enkripsi, lalu masukkan file atau folder Anda.</li>
+                        <li class="flex items-start"><span class="bg-emerald-100 text-emerald-700 rounded-full w-5 h-5 flex items-center justify-center text-xs font-bold mr-2 mt-0.5 shrink-0">2</span> Buat password yang kuat sebagai kunci rahasia.</li>
+                        <li class="flex items-start"><span class="bg-emerald-100 text-emerald-700 rounded-full w-5 h-5 flex items-center justify-center text-xs font-bold mr-2 mt-0.5 shrink-0">3</span> Klik proses, dan unduh file hasil enkripsi berformat <b class="text-emerald-700">.vault</b>.</li>
+                    </ul>
+                </div>
+
+                <!-- Dekripsi -->
+                <div class="bg-white p-6 rounded-3xl border border-slate-200 shadow-sm relative overflow-hidden">
+                    <div class="absolute top-0 right-0 bg-slate-100 text-slate-800 text-[10px] font-bold px-3 py-1 rounded-bl-xl uppercase tracking-wider">Dekripsi</div>
+                    <h3 class="font-bold text-slate-800 mb-4 flex items-center"><svg class="w-5 h-5 mr-2 text-slate-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 11V7a4 4 0 118 0m-4 8v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2z"></path></svg> Membuka File</h3>
+                    <ul class="text-sm text-slate-600 space-y-3">
+                        <li class="flex items-start"><span class="bg-slate-200 text-slate-700 rounded-full w-5 h-5 flex items-center justify-center text-xs font-bold mr-2 mt-0.5 shrink-0">1</span> Pilih tab Dekripsi, masukkan file <b class="text-slate-800">.vault</b> Anda.</li>
+                        <li class="flex items-start"><span class="bg-slate-200 text-slate-700 rounded-full w-5 h-5 flex items-center justify-center text-xs font-bold mr-2 mt-0.5 shrink-0">2</span> Masukkan password yang sama persis saat mengenkripsi.</li>
+                        <li class="flex items-start"><span class="bg-slate-200 text-slate-700 rounded-full w-5 h-5 flex items-center justify-center text-xs font-bold mr-2 mt-0.5 shrink-0">3</span> Klik Buka Vault, dan file/folder asli Anda otomatis terunduh.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Warning Peringatan -->
+            <div class="space-y-4">
+                <!-- Warning Eksklusivitas -->
+                <div class="bg-amber-50 border border-amber-200 rounded-2xl p-5 flex items-start space-x-4">
+                    <div class="bg-amber-100 p-2 rounded-xl text-amber-600 shrink-0">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                    </div>
+                    <div>
+                        <h4 class="text-amber-800 font-bold mb-1 text-sm">Eksklusivitas Platform</h4>
+                        <p class="text-amber-700 text-sm leading-relaxed">
+                            File atau folder (<b class="font-bold">.vault</b>) yang dienkripsi di sini <strong>hanya dapat didekripsi melalui website ini</strong>. Kami menggunakan algoritma unik yang terikat secara spesifik dengan aplikasi ini untuk perlindungan ekstra. Pastikan Anda mengingat URL aplikasi ini.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Warning Lupa Password -->
+                <div class="bg-red-50 border border-red-200 rounded-2xl p-5 flex items-start space-x-4">
+                    <div class="bg-red-100 p-2 rounded-xl text-red-600 shrink-0">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path></svg>
+                    </div>
+                    <div>
+                        <h4 class="text-red-800 font-bold mb-1 text-sm">Peringatan Kritis: Lupa Password = Kehilangan Data</h4>
+                        <p class="text-red-700 text-sm leading-relaxed">
+                            Karena kami menggunakan sistem <i>Zero Knowledge</i>, kami <strong>tidak pernah menyimpan password Anda</strong> di mana pun. Jika Anda melupakan password yang digunakan saat mengenkripsi, maka file Anda <strong>tidak akan pernah bisa dibuka kembali (hilang selamanya)</strong>. Harap simpan password Anda di tempat yang aman!
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- APP VIEW -->
+    <div id="appView" class="hidden min-h-screen flex items-center justify-center p-4 view-transition">
+        <div class="bg-white p-6 sm:p-8 rounded-3xl shadow-2xl border border-slate-200 w-full max-w-md relative">
+            
+            <button onclick="showHome()" class="absolute -top-12 left-0 text-slate-600 hover:text-emerald-600 flex items-center text-sm font-medium transition-colors">
+                <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path></svg>
+                Kembali ke Beranda
+            </button>
+
+            <div class="text-center mb-6">
+                <div class="inline-flex items-center justify-center w-12 h-12 rounded-2xl bg-emerald-50 text-emerald-600 mb-3 border border-emerald-100">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path></svg>
+                </div>
+                <h1 class="text-2xl font-extrabold tracking-tight text-slate-900">Browser Vault</h1>
+                <p class="text-xs text-slate-500 mt-1 uppercase tracking-widest font-bold">Secure Processing</p>
+            </div>
+
+            <div class="flex p-1.5 space-x-1 bg-slate-100 rounded-2xl mb-6">
+                <button id="tabEncryptBtn" class="w-full rounded-xl py-2.5 text-sm font-bold transition-all bg-white shadow-sm text-slate-700" onclick="switchTab('encrypt')">Enkripsi</button>
+                <button id="tabDecryptBtn" class="w-full rounded-xl py-2.5 text-sm font-bold transition-all text-slate-500 hover:text-slate-700" onclick="switchTab('decrypt')">Dekripsi</button>
+            </div>
+
+            <div id="alertBox" class="hidden mb-4 p-4 rounded-xl text-sm text-center font-bold"></div>
+
+            <!-- Tab Enkripsi -->
+            <div id="tabEncrypt" class="tab-content active space-y-5">
+                <div class="flex justify-center space-x-6 mb-2">
+                    <label class="flex items-center space-x-2 cursor-pointer group">
+                        <input type="radio" name="encType" value="file" checked class="w-4 h-4 text-emerald-600 focus:ring-emerald-500 border-slate-300">
+                        <span class="text-sm font-bold text-slate-600 group-hover:text-emerald-700">File</span>
+                    </label>
+                    <label class="flex items-center space-x-2 cursor-pointer group">
+                        <input type="radio" name="encType" value="folder" class="w-4 h-4 text-emerald-600 focus:ring-emerald-500 border-slate-300">
+                        <span class="text-sm font-bold text-slate-600 group-hover:text-emerald-700">Folder</span>
+                    </label>
+                </div>
+
+                <div id="dropZoneContainer">
+                    <label id="dropZoneEncrypt" class="flex flex-col items-center justify-center w-full h-36 border-2 border-slate-200 border-dashed rounded-2xl cursor-pointer bg-slate-50 hover:bg-emerald-50 hover:border-emerald-300 transition-all group">
+                        <div class="flex flex-col items-center justify-center pt-5 pb-6 text-center px-4">
+                            <svg class="w-10 h-10 mb-3 text-slate-400 group-hover:text-emerald-500 transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"></path></svg>
+                            <p class="text-xs text-slate-500 font-bold" id="dropText">Pilih File untuk dienkripsi</p>
+                        </div>
+                        <input type="file" id="fileEncrypt" class="hidden" />
+                    </label>
+                    
+                    <div id="fileInfoEncrypt" class="hidden mt-2 p-4 bg-emerald-50 rounded-2xl border border-emerald-100">
+                        <div class="flex items-center justify-between">
+                            <span id="fileNameDisplay" class="text-xs font-bold text-emerald-800 truncate pr-2"></span>
+                            <button onclick="resetInput('encrypt')" class="text-xs font-black text-red-500 hover:text-red-700 uppercase tracking-tighter">Batal</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div>
+                    <label class="block text-xs font-black text-slate-500 uppercase tracking-widest mb-1.5 ml-1">Kunci Rahasia</label>
+                    <input type="password" id="passEncrypt" placeholder="••••••••" class="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl focus:ring-2 focus:ring-emerald-500 outline-none transition text-sm font-mono">
+                </div>
+
+                <button id="btnEncrypt" class="w-full bg-emerald-600 text-white font-black py-3.5 px-4 rounded-xl hover:bg-emerald-700 shadow-lg shadow-emerald-200 transition-all transform active:scale-[0.98]">
+                    Proses Enkripsi
+                </button>
+            </div>
+
+            <!-- Tab Dekripsi -->
+            <div id="tabDecrypt" class="tab-content space-y-5">
+                <label id="dropZoneDecrypt" class="flex flex-col items-center justify-center w-full h-36 border-2 border-slate-200 border-dashed rounded-2xl cursor-pointer bg-slate-50 hover:bg-emerald-50 hover:border-emerald-300 transition-all group">
+                    <div class="flex flex-col items-center justify-center pt-5 pb-6 text-center px-4">
+                        <svg class="w-10 h-10 mb-3 text-slate-400 group-hover:text-emerald-500 transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 11V7a4 4 0 118 0m-4 8v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2z"></path></svg>
+                        <p class="text-xs text-slate-500 font-bold">Pilih file <span class="text-emerald-600">.vault</span></p>
+                    </div>
+                    <input type="file" id="fileDecrypt" accept=".vault" class="hidden" />
                 </label>
                 
-                <div id="fileInfoEncrypt" class="hidden mt-2 p-3 bg-blue-50 rounded-lg border border-blue-100">
+                <div id="fileInfoDecrypt" class="hidden mt-2 p-4 bg-emerald-50 rounded-2xl border border-emerald-100">
                     <div class="flex items-center justify-between">
-                        <span id="fileNameDisplay" class="text-xs font-semibold text-blue-800 truncate pr-2"></span>
-                        <button onclick="resetInput('encrypt')" class="text-xs font-bold text-red-600 hover:text-red-800 underline">Batal</button>
+                        <span id="vaultNameDisplay" class="text-xs font-bold text-emerald-800 truncate pr-2"></span>
+                        <button onclick="resetInput('decrypt')" class="text-xs font-black text-red-500 hover:text-red-700 uppercase tracking-tighter">Batal</button>
                     </div>
                 </div>
-            </div>
 
-            <div>
-                <label class="block text-sm font-semibold text-slate-700 mb-1.5">Password</label>
-                <input type="password" id="passEncrypt" placeholder="Kunci rahasia..." class="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-lg focus:ring-2 focus:ring-blue-500 outline-none transition text-sm">
-            </div>
-
-            <button id="btnEncrypt" class="w-full bg-blue-600 text-white font-bold py-2.5 px-4 rounded-lg hover:bg-blue-700 transition">Proses Enkripsi</button>
-        </div>
-
-        <div id="tabDecrypt" class="tab-content space-y-5">
-            <label id="dropZoneDecrypt" class="flex flex-col items-center justify-center w-full h-32 border-2 border-slate-300 border-dashed rounded-xl cursor-pointer bg-slate-50 hover:bg-green-50 transition">
-                <div class="flex flex-col items-center justify-center pt-5 pb-6 text-center px-4">
-                    <svg class="w-8 h-8 mb-2 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 11V7a4 4 0 118 0m-4 8v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2z"></path></svg>
-                    <p class="text-xs text-slate-500 font-medium">Pilih file <span class="font-bold">.vault</span></p>
+                <div>
+                    <label class="block text-xs font-black text-slate-500 uppercase tracking-widest mb-1.5 ml-1">Password Pembuka</label>
+                    <input type="password" id="passDecrypt" placeholder="••••••••" class="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl focus:ring-2 focus:ring-emerald-500 outline-none transition text-sm font-mono">
                 </div>
-                <input type="file" id="fileDecrypt" accept=".vault" class="hidden" />
-            </label>
-            
-            <div id="fileInfoDecrypt" class="hidden mt-2 p-3 bg-green-50 rounded-lg border border-green-100">
-                <div class="flex items-center justify-between">
-                    <span id="vaultNameDisplay" class="text-xs font-semibold text-green-800 truncate pr-2"></span>
-                    <button onclick="resetInput('decrypt')" class="text-xs font-bold text-red-600 hover:text-red-800 underline">Batal</button>
-                </div>
-            </div>
 
-            <div>
-                <label class="block text-sm font-semibold text-slate-700 mb-1.5">Password</label>
-                <input type="password" id="passDecrypt" placeholder="Password pembuka..." class="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-lg focus:ring-2 focus:ring-green-500 outline-none transition text-sm">
+                <button id="btnDecrypt" class="w-full bg-emerald-600 text-white font-black py-3.5 px-4 rounded-xl hover:bg-emerald-700 shadow-lg shadow-emerald-200 transition-all transform active:scale-[0.98]">
+                    Buka Vault
+                </button>
             </div>
-
-            <button id="btnDecrypt" class="w-full bg-green-600 text-white font-bold py-2.5 px-4 rounded-lg hover:bg-green-700 transition">Buka Vault</button>
         </div>
     </div>
 

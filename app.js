@@ -1,18 +1,38 @@
 const APP_SECRET_SALT = "GaramRahasiaBrowserVault2026_!@#"; 
 
+// --- NAVIGASI VIEW ---
+function showApp() {
+    document.getElementById('homeView').classList.add('hidden');
+    document.getElementById('appView').classList.remove('hidden');
+    window.scrollTo(0, 0);
+}
+
+function showHome() {
+    document.getElementById('appView').classList.add('hidden');
+    document.getElementById('homeView').classList.remove('hidden');
+    window.scrollTo(0, 0);
+}
+
 // --- MANAJEMEN UI ---
 function switchTab(tab) {
     hideAlert();
-    document.getElementById('tabEncrypt').classList.toggle('active', tab === 'encrypt');
-    document.getElementById('tabDecrypt').classList.toggle('active', tab === 'decrypt');
-    document.getElementById('tabEncryptBtn').className = tab === 'encrypt' ? "w-full rounded-lg py-2 text-sm font-medium transition-all bg-white shadow text-slate-700" : "w-full rounded-lg py-2 text-sm font-medium transition-all text-slate-500 hover:text-slate-700";
-    document.getElementById('tabDecryptBtn').className = tab === 'decrypt' ? "w-full rounded-lg py-2 text-sm font-medium transition-all bg-white shadow text-slate-700" : "w-full rounded-lg py-2 text-sm font-medium transition-all text-slate-500 hover:text-slate-700";
+    const isEnc = tab === 'encrypt';
+    document.getElementById('tabEncrypt').classList.toggle('active', isEnc);
+    document.getElementById('tabDecrypt').classList.toggle('active', !isEnc);
+    
+    const activeClass = "w-full rounded-xl py-2.5 text-sm font-bold transition-all bg-white shadow-sm text-slate-700";
+    const inactiveClass = "w-full rounded-xl py-2.5 text-sm font-bold transition-all text-slate-500 hover:text-slate-700";
+    
+    document.getElementById('tabEncryptBtn').className = isEnc ? activeClass : inactiveClass;
+    document.getElementById('tabDecryptBtn').className = !isEnc ? activeClass : inactiveClass;
 }
 
 function showAlert(message, isError = false) {
     const box = document.getElementById('alertBox');
     box.innerText = message;
-    box.className = `mb-4 p-3 rounded-lg text-xs text-center font-medium ${isError ? 'bg-red-100 text-red-700' : 'bg-green-100 text-green-700'}`;
+    box.className = `mb-4 p-4 rounded-xl text-sm text-center font-bold border ${
+        isError ? 'bg-red-50 text-red-600 border-red-100' : 'bg-emerald-50 text-emerald-700 border-emerald-100'
+    }`;
     box.style.display = 'block';
 }
 
@@ -135,16 +155,12 @@ document.getElementById('btnDecrypt').addEventListener('click', async () => {
         let originalName = fileInput.files[0].name.replace(".vault", "");
         let blobType = 'application/octet-stream';
         
-        // --- PERBAIKAN: Deteksi ZIP (Folder) Otomatis via Magic Bytes ---
-        // Membaca 4 byte pertama file hasil dekripsi
         const header = new Uint8Array(decrypted.slice(0, 4));
-        // Mengecek apakah 4 byte pertama adalah "50 4B 03 04" (Standar format file ZIP)
         const isZip = header[0] === 0x50 && header[1] === 0x4B && header[2] === 0x03 && header[3] === 0x04;
         
-        // Jika file tersebut ternyata ZIP (Folder) dan namanya belum ada ".zip", kita tambahkan
         if (isZip && !originalName.endsWith('.zip')) {
             originalName += ".zip";
-            blobType = 'application/zip'; // Beri tahu browser ini file ZIP
+            blobType = 'application/zip';
         }
 
         const blob = new Blob([decrypted], { type: blobType });
